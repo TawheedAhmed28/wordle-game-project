@@ -1,0 +1,65 @@
+* {
+    box-sizing: border-box;
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 100%;
+}
+
+header {
+    font-size: 100px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#player-guesses {
+    display: flex;
+    justify-content: stretch;
+    margin: 0 auto;
+    width: 770px;
+    height: 780px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    font-size: 700%;
+}
+
+.first-guess, .second-guess, .third-guess, .fourth-guess, .fifth-guess, .sixth-guess {
+    display: flex;
+    border: 2px solid black;
+    border-radius: 12px;
+    width: 144px;
+    height: 144px;
+    margin: 5px 5px;
+    position: relative;
+    top: 100px;
+    padding-top: 24px;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#keyboard {
+    display: flex;
+    justify-content: stretch;
+    position: relative;
+    top: 24em;
+    min-height: 100%;
+    margin-left: 22.5%;
+    margin-right: 22.5%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.first-row, .second-row, .third-row {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    font-size: 2.2em;
+}
+
+button {
+    padding: 17px;
+}
+
+#highlight {
+    color: rgb(24, 168, 60)
+}
