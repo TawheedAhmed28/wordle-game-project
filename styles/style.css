@@ -46,6 +46,7 @@ header {
     margin-right: 22.5%;
     flex-direction: column;
     flex-wrap: nowrap;
+    margin-bottom: 20%;
 }
 
 .first-row, .second-row, .third-row {
