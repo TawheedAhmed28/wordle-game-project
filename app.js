@@ -6,14 +6,25 @@ let chosenWord = ""
 let winMessage = ("You got it! the word was " + chosenWord)
 let loseMessage = ("Better luck next time! The word was " + chosenWord)
 let playedWord = ""
+let currentGuess = null
+
+const playerGuesses = {
+    firstGuess: document.querySelectorAll(".first-guess"),
+    secondGuess: document.querySelectorAll(".second-guess"),
+    thirdGuess: document.querySelectorAll(".third-guess"),
+    fourthGuess: document.querySelectorAll(".fourth-guess"),
+    fifthGuess: document.querySelectorAll(".fifth-guess"),
+    sixthGuess: document.querySelectorAll(".sixth-guess"),
+}
+
+console.log(playerGuesses.firstGuess[2].innerText)
 
 
 
 
+const initialise = () => {
 
-
-
-
+}
 
 const chooseWord = () => {
     const randomIndex = Math.floor(Math.random(wordList.length))
@@ -25,6 +36,8 @@ const selectLetter = (button) => {
         deleteLetter()
     } else if (button.target.id === "submit") {
         return
+    } else if (playedWord.length === 5) {
+        return
     } else {
         playedWord += button.target.id
     }
@@ -32,7 +45,18 @@ const selectLetter = (button) => {
 }
 
 const deleteLetter = () => {
-    playedWord = playedWord.replace(playedWord[(playedWord.length - 1)], "")
+    playedWord = playedWord.slice(0, -1)
+}
+
+const submitWord = () => {}
+
+const determineGuessNumber = () => {
+}
+
+const checkLetter = (word) => {
+    for (let i = 0; i < word.length; i++) {
+        if (word[i] === chosenWord[i]) {}
+    }
 }
 
 const qButton = document.querySelector("#Q")
@@ -64,7 +88,7 @@ const mButton = document.querySelector("#M")
 const backButton = document.querySelector("#backspace")
 const submitButton = document.querySelector("#submit")
 
-const keyboardButtons = [qButton, wButton, eButton, rButton, tButton, uButton, iButton, oButton, pButton, aButton, sButton, dButton, fButton, gButton, hButton, jButton, kButton, lButton, zButton, xButton, cButton, vButton, bButton, nButton, mButton, backButton, submitButton]
+const keyboardButtons = [qButton, wButton, eButton, rButton, tButton, yButton, uButton, iButton, oButton, pButton, aButton, sButton, dButton, fButton, gButton, hButton, jButton, kButton, lButton, zButton, xButton, cButton, vButton, bButton, nButton, mButton, backButton, submitButton]
 
 
 for (const keyboardButton of keyboardButtons) {

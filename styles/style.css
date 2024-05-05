@@ -10,6 +10,12 @@ header {
     margin: 0 auto;
 }
 
+h1 {
+    text-align: center;
+    margin: 40px 140px 0 140px;
+    font-size: 20px;
+}
+
 #player-guesses {
     display: flex;
     justify-content: stretch;
@@ -55,6 +61,18 @@ header {
     flex-direction: row;
     flex-wrap: nowrap;
     font-size: 2.2em;
+}
+
+.amber {
+    color: rgb(224, 148, 6);
+}
+
+.green {
+    color: rgb(5, 196, 5);
+}
+
+.grey {
+    color: rgb(121, 121, 121);
 }
 
 button {
