@@ -8,57 +8,6 @@ let loseMessage = ("Better luck next time! The word was " + chosenWord)
 let playedWord = ""
 let currentGuess = null
 
-const playerGuesses = {
-    firstGuess: document.querySelectorAll(".first-guess"),
-    secondGuess: document.querySelectorAll(".second-guess"),
-    thirdGuess: document.querySelectorAll(".third-guess"),
-    fourthGuess: document.querySelectorAll(".fourth-guess"),
-    fifthGuess: document.querySelectorAll(".fifth-guess"),
-    sixthGuess: document.querySelectorAll(".sixth-guess"),
-}
-
-console.log(playerGuesses.firstGuess[2].innerText)
-
-
-
-
-const initialise = () => {
-
-}
-
-const chooseWord = () => {
-    const randomIndex = Math.floor(Math.random(wordList.length))
-    chosenWord = wordList[randomIndex]
-}
-
-const selectLetter = (button) => {
-    if (button.target.id === "backspace") {
-        deleteLetter()
-    } else if (button.target.id === "submit") {
-        return
-    } else if (playedWord.length === 5) {
-        return
-    } else {
-        playedWord += button.target.id
-    }
-    console.log(playedWord)
-}
-
-const deleteLetter = () => {
-    playedWord = playedWord.slice(0, -1)
-}
-
-const submitWord = () => {}
-
-const determineGuessNumber = () => {
-}
-
-const checkLetter = (word) => {
-    for (let i = 0; i < word.length; i++) {
-        if (word[i] === chosenWord[i]) {}
-    }
-}
-
 const qButton = document.querySelector("#Q")
 const wButton = document.querySelector("#W")
 const eButton = document.querySelector("#E")
@@ -88,6 +37,126 @@ const mButton = document.querySelector("#M")
 const backButton = document.querySelector("#backspace")
 const submitButton = document.querySelector("#submit")
 
+const firstGuess = document.querySelectorAll(".first-guess")
+const secondGuess = document.querySelectorAll(".second-guess")
+const thirdGuess = document.querySelectorAll(".third-guess")
+const fourthGuess = document.querySelectorAll(".fourth-guess")
+const fifthGuess = document.querySelectorAll(".fifth-guess")
+const sixthGuess = document.querySelectorAll(".sixth-guess")
+
+const firstGuessFirst = document.querySelector("#b0")
+const firstGuessSecond = document.querySelector("#b1")
+const firstGuessThird = document.querySelector("#b2")
+const firstGuessFourth = document.querySelector("#b3")
+const firstGuessFifth = document.querySelector("#b4")
+
+const secondGuessFirst = document.querySelector("#b5")
+const secondGuessSecond = document.querySelector("#b6")
+const secondGuessThird = document.querySelector("#b7")
+const secondGuessFourth = document.querySelector("#b8")
+const secondGuessFifth = document.querySelector("#b9")
+
+const thirdGuessFirst = document.querySelector("#b10")
+const thirdGuessSecond = document.querySelector("#b11")
+const thirdGuessThird = document.querySelector("#b12")
+const thirdGuessFourth = document.querySelector("#b13")
+const thirdGuessFifth = document.querySelector("#b14")
+
+const fourthGuessFirst = document.querySelector("#b15")
+const fourthGuessSecond = document.querySelector("#b16")
+const fourthGuessThird = document.querySelector("#b17")
+const fourthGuessFourth = document.querySelector("#b18")
+const fourthGuessFifth = document.querySelector("#b19")
+
+const fifthGuessFirst = document.querySelector("#b20")
+const fifthGuessSecond = document.querySelector("#b21")
+const fifthGuessThird = document.querySelector("#b22")
+const fifthGuessFourth = document.querySelector("#b23")
+const fifthGuessFifth = document.querySelector("#b24")
+
+const sixthGuessFirst = document.querySelector("#b25")
+const sixthGuessSecond = document.querySelector("#b26")
+const sixthGuessThird = document.querySelector("#b27")
+const sixthGuessFourth = document.querySelector("#b28")
+const sixthGuessFifth = document.querySelector("#b29")
+
+
+const playerGuesses = [firstGuess, secondGuess, thirdGuess, fourthGuess, fifthGuess, sixthGuess]
+
+
+let firstGuessSubmitted = false
+let secondGuessSubmitted = false
+let thirdGuessSubmitted = false
+let fourthGuessSubmitted = false
+let fifthGuessSubmitted = false
+let sixthGuessSubmitted = false
+
+const guessSubmitStatus = [firstGuessSubmitted, secondGuessSubmitted, thirdGuessSubmitted, fourthGuessSubmitted, fifthGuessSubmitted, sixthGuessSubmitted]
+
+
+const initialise = () => {
+    chooseWord()
+    currentGuess = playerGuesses[0]
+    playerGuesses.forEach((guess) => {
+        guess.forEach((letter) =>{
+            letter.innerText = ""
+        })
+    })
+    guessSubmitStatus.forEach((status) => {
+        status = false
+    })
+}
+
+const chooseWord = () => {
+    const randomIndex = Math.floor(Math.random(wordList.length))
+    chosenWord = wordList[randomIndex]
+}
+
+initialise()
+
+console.log(currentGuess[1])
+
+
+const renderLetter = () => {
+    for (let i = 0; i < currentGuess.length; i++) {
+        currentGuess[i].innerText = playedWord[i]
+    }
+}
+
+const selectLetter = (event) => {
+    if (event.target.id === "backspace") {
+        deleteLetter()
+    } else if (event.target.id === "submit" && playedWord.length === 5) {
+        return
+    } else if (playedWord.length === 5) {
+        return
+    } else {
+        playedWord += event.target.id
+        renderLetter()
+    }
+    console.log(playedWord)
+}
+
+const deleteLetter = () => {
+    playedWord = playedWord.slice(0, -1)
+    renderLetter()
+}
+
+const submitWord = () => {}
+
+
+
+const checkLetter = (word) => {
+    for (let i = 0; i < word.length; i++) {
+        if (word[i] === chosenWord[i]) {
+
+        }
+    }
+}
+
+
+
+
 const keyboardButtons = [qButton, wButton, eButton, rButton, tButton, yButton, uButton, iButton, oButton, pButton, aButton, sButton, dButton, fButton, gButton, hButton, jButton, kButton, lButton, zButton, xButton, cButton, vButton, bButton, nButton, mButton, backButton, submitButton]
 
 
@@ -95,5 +164,4 @@ for (const keyboardButton of keyboardButtons) {
     keyboardButton.addEventListener("click", selectLetter) 
 }
 
-/*----------------------------- console.logs + code sandbox below --------------------------------*/
 
