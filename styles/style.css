@@ -65,14 +65,22 @@ h1 {
 
 .amber {
     color: rgb(224, 148, 6);
+    transition: color 500ms linear;
+    background-color: rgba(235, 160, 22, 0.5);
+    transition: background-color 500ms linear;
 }
 
 .green {
-    color: rgb(5, 196, 5);
+    color: rgb(7, 145, 7);
+    transition: color 500ms linear;
+    background-color: rgba(93, 223, 67, 0.445);
+    transition: background-color 500ms linear;
 }
 
 .grey {
     color: rgb(121, 121, 121);
+    transition: color 500ms linear;
+    background-color: rgba(167, 167, 167, 0.548);
 }
 
 button {
