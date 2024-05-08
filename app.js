@@ -6,10 +6,10 @@ const wordList = lowercaseWordList.map((word) => {
 })
 
 let chosenWord = ""
-let winMessage = ("You got it! the word was " + chosenWord)
-let loseMessage = ("Better luck next time! The word was " + chosenWord)
 let playedWord = ""
 let currentGuess = null
+
+const resultMessage = document.querySelector("#result-message")
 
 const qButton = document.querySelector("#Q")
 const wButton = document.querySelector("#W")
@@ -40,12 +40,12 @@ const mButton = document.querySelector("#M")
 const backButton = document.querySelector("#backspace")
 const submitButton = document.querySelector("#submit")
 
-const firstGuess = document.querySelectorAll(".first-guess")
-const secondGuess = document.querySelectorAll(".second-guess")
-const thirdGuess = document.querySelectorAll(".third-guess")
-const fourthGuess = document.querySelectorAll(".fourth-guess")
-const fifthGuess = document.querySelectorAll(".fifth-guess")
-const sixthGuess = document.querySelectorAll(".sixth-guess")
+const firstGuess = Array.from(document.querySelectorAll(".first-guess"))
+const secondGuess = Array.from(document.querySelectorAll(".second-guess"))
+const thirdGuess = Array.from(document.querySelectorAll(".third-guess"))
+const fourthGuess = Array.from(document.querySelectorAll(".fourth-guess"))
+const fifthGuess = Array.from(document.querySelectorAll(".fifth-guess"))
+const sixthGuess = Array.from(document.querySelectorAll(".sixth-guess"))
 
 const firstGuessFirst = document.querySelector("#b0")
 const firstGuessSecond = document.querySelector("#b1")
@@ -117,7 +117,6 @@ const chooseWord = () => {
 initialise()
 // console.log(currentGuess[1])
 
-
 const renderLetter = () => {
     for (let i = 0; i < 5; i++) {
         if (playedWord[i]) {
@@ -165,6 +164,7 @@ const submitWord = () => {
     } else {
     checkLetter(playedWord)
     guessSubmitStatus[playerGuesses.indexOf(currentGuess)] = true
+    checkWinCondition()
     updateGuessNumber()
     playedWord = ""
     }
@@ -174,9 +174,12 @@ const submitWord = () => {
 
 const updateGuessNumber = () => {
     let i = playerGuesses.indexOf(currentGuess)
-    for (const guess of guessSubmitStatus) {
+    if (i === 5 && guessSubmitStatus[i] === false) {
+        guessSubmitStatus[i] = true
+        return
+    } else for (const guess of guessSubmitStatus) {
         if (guess === true) {
-            currentGuess = playerGuesses[i + 1] 
+            currentGuess = playerGuesses[i + 1]
         } else if (guess === false) {
             return
         }
@@ -184,14 +187,44 @@ const updateGuessNumber = () => {
 }
 
 const checkLetter = (word) => {
+    const solutionWordCharacters = {}
+    for (let i = 0; i < chosenWord.length; i++) {
+        if (solutionWordCharacters[chosenWord[i]]) {
+            solutionWordCharacters[chosenWord[i]]++
+        } else {
+            solutionWordCharacters[chosenWord[i]] = 1
+        }
+    }
     for (let i = 0; i < 5; i++) {
         if (word[i] === chosenWord[i]) {
            currentGuess[i].classList.add("green")
-        } else if (chosenWord.includes(word[i])) {
+           solutionWordCharacters[word[i]]--
+        } else if (solutionWordCharacters[word[i]] > 0) {
             currentGuess[i].classList.add("amber")
+            solutionWordCharacters[word[i]]--
         } else {
             currentGuess[i].classList.add("grey")
         }
+    }
+}
+
+const checkWinCondition = () => {
+    const winMessage = ("You got it! The word was: " + chosenWord)
+    const loseMessage = ("Better luck next time! The word was: " + chosenWord)
+    const hasGreenClass = (letter) => letter.classList.contains("green")
+    const isTrue = (status) => status === true
+    if (currentGuess.every(hasGreenClass)) {
+        resultMessage.innerText = winMessage
+        for (const keyboardButton of keyboardButtons) {
+            keyboardButton.removeEventListener("click", selectLetter)
+        }
+    } else if (guessSubmitStatus.every(isTrue) && !currentGuess.every(hasGreenClass)) {
+        for (const keyboardButton of keyboardButtons) {
+            keyboardButton.removeEventListener("click", selectLetter)
+        }
+        resultMessage.innerText = loseMessage
+    } else {
+        return
     }
 }
 
