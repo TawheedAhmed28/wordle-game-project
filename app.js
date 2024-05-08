@@ -115,12 +115,11 @@ const initialise = () => {
                 letter.classList.remove("amber")
             }
             submitButton.removeEventListener("click", initialise)
-            submitButton.addEventListener("click", selectLetter)
             submitButton.innerText = "Submit!"
         })
     })
-    guessSubmitStatus.forEach((status) => {
-        status = false
+    guessSubmitStatus.forEach((status, i) => {
+        guessSubmitStatus[i] = false
     })
     if (resultMessage.classList.contains("result-lose")) {
         resultMessage.classList.remove("result-lose")

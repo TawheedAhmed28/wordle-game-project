@@ -18,9 +18,9 @@ h1 {
 
 h2 {
     text-align: center;
-    margin-top: 110px;
+    margin-top: 80px;
     margin-bottom: 0px;
-    font-size: 80px;
+    font-size: 60px;
     color: transparent;
 }
 
@@ -38,6 +38,8 @@ h2 {
     display: flex;
     justify-content: stretch;
     margin: 0 auto;
+    margin-top: 0px;
+    margin-bottom: 50px;
     width: 770px;
     height: 780px;
     flex-direction: row;
@@ -64,7 +66,7 @@ h2 {
     display: flex;
     justify-content: stretch;
     position: relative;
-    top: 24em;
+    top: 16em;
     min-height: 100%;
     margin-left: 22.5%;
     margin-right: 22.5%;
