@@ -13,7 +13,25 @@ header {
 h1 {
     text-align: center;
     margin: 40px 140px 0 140px;
-    font-size: 20px;
+    font-size: 25px;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 110px;
+    margin-bottom: 0px;
+    font-size: 80px;
+    color: transparent;
+}
+
+.result-win {
+    color: green;
+    transition: color 2500ms linear;
+}
+
+.result-lose {
+    color: darkred;
+    transition: color 2500ms linear;
 }
 
 #player-guesses {
