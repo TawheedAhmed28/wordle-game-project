@@ -206,15 +206,19 @@ const checkLetter = (word) => {
         if (word[i] === chosenWord[i]) {
            currentGuess[i].classList.add("green")
            solutionWordCharacters[word[i]]--
-        } else if (solutionWordCharacters[word[i]] > 0) {
+        }}
+    for (let i = 0; i < 5; i++) {
+        if (solutionWordCharacters[word[i]] > 0) {
             currentGuess[i].classList.add("amber")
             solutionWordCharacters[word[i]]--
-        } else {
+        } else if (!currentGuess[i].classList.contains("green") && !currentGuess[i].classList.contains("amber")) {
             currentGuess[i].classList.add("grey")
         }
     }
-    console.log(solutionWordCharacters)
+    solutionWordCharacters = {}
 }
+
+// ! Make a note in the README about the difficulties of getting the checkLetter loop to work - when there were more than one of the same character in the guess.
 
 const checkWinCondition = () => {
     const winMessage = ("You got it! The word was: " + chosenWord)
