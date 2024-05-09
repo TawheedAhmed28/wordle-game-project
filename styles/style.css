@@ -72,7 +72,7 @@ h2 {
     margin-right: 22.5%;
     flex-direction: column;
     flex-wrap: nowrap;
-    margin-bottom: 20%;
+    margin-bottom: 7%;
 }
 
 .first-row, .second-row, .third-row {
@@ -84,9 +84,9 @@ h2 {
 }
 
 .amber {
-    color: rgb(182, 122, 12);
+    color: #83590c;
     transition: color 500ms linear, background-color 500ms linear;
-    background-color: rgba(235, 161, 22, 0.397);
+    background-color: #F9D99F;
 }
 
 .green {
@@ -96,7 +96,7 @@ h2 {
 }
 
 .grey {
-    color: rgb(44, 44, 44);
+    color: #2c2c2c;
     transition: color 500ms linear, background-color 500ms linear;
     background-color: rgba(167, 167, 167, 0.548);
 }
@@ -107,4 +107,25 @@ button {
 
 #highlight {
     color: rgb(24, 168, 60)
+}
+
+.accessibility-amber {
+    font-weight: 900;
+}
+
+.accessibility-green {
+    text-decoration: underline;
+    font-weight: 900;
+}
+
+#accessibility {
+    font-size: 30px;
+    height: 8%;
+    width: 20%;
+    margin-top: 10%;
+}
+
+.accessibility {
+    display: flex;
+    justify-content: center;
 }

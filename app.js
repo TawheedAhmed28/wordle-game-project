@@ -41,6 +41,7 @@ const nButton = document.querySelector("#N")
 const mButton = document.querySelector("#M")
 const backButton = document.querySelector("#backspace")
 const submitButton = document.querySelector("#submit")
+const accessibilityButton = document.querySelector("#accessibility")
 
 const firstGuess = Array.from(document.querySelectorAll(".first-guess"))
 const secondGuess = Array.from(document.querySelectorAll(".second-guess"))
@@ -114,10 +115,12 @@ const initialise = () => {
             if (letter.classList.contains("amber")) {
                 letter.classList.remove("amber")
             }
-            submitButton.removeEventListener("click", initialise)
-            submitButton.innerText = "Submit!"
+            letter.classList.remove("accessibility-green") 
+            letter.classList.remove("accessibility-amber")
         })
     })
+    submitButton.removeEventListener("click", initialise)
+    submitButton.innerText = "Submit!"
     guessSubmitStatus.forEach((status, i) => {
         guessSubmitStatus[i] = false
     })
@@ -130,6 +133,18 @@ const initialise = () => {
     for (const keyboardButton of keyboardButtons) {
         keyboardButton.addEventListener("click", selectLetter) 
     }
+    accessibilityButton.removeEventListener("click", initialise)
+    accessibilityButton.addEventListener("click", initialiseAccessibility)
+    submitButton.removeEventListener("click", submitWordAccessibility)
+    submitButton.addEventListener("click", selectLetter)
+}
+
+const initialiseAccessibility = () => {
+    initialise()
+    accessibilityButton.removeEventListener("click", initialiseAccessibility)
+    accessibilityButton.addEventListener("click", initialise)
+    submitButton.removeEventListener("click", selectLetter)
+    submitButton.addEventListener("click", submitWordAccessibility)
 }
 
 const chooseWord = () => {
@@ -173,6 +188,28 @@ const submitWord = () => {
         alert("That word isn't in the word list here - if it is a word it'll be added in the future! If it's just a keyboard mash though, maybe you should think a little harder...")
     } else {
     checkLetter(playedWord)
+    guessSubmitStatus[playerGuesses.indexOf(currentGuess)] = true
+    checkWinCondition()
+    updateGuessNumber()
+    playedWord = ""
+    }
+}
+
+const submitWordAccessibility = () => {
+    if (!wordList.includes(playedWord)) {
+        alert("That word isn't in the word list here - if it is a word it'll be added in the future! If it's just a keyboard mash though, maybe you should think a little harder...")
+    } else {
+    checkLetter(playedWord)
+    playerGuesses.forEach((guess) => {
+        guess.forEach((letter) => {
+           if (letter.classList.contains("amber")) {
+            letter.classList.add("accessibility-amber")
+           }
+           if (letter.classList.contains("green")) {
+            letter.classList.add("accessibility-green")
+           }
+        })
+    })
     guessSubmitStatus[playerGuesses.indexOf(currentGuess)] = true
     checkWinCondition()
     updateGuessNumber()
@@ -245,6 +282,5 @@ const checkWinCondition = () => {
 }
 
 const keyboardButtons = [qButton, wButton, eButton, rButton, tButton, yButton, uButton, iButton, oButton, pButton, aButton, sButton, dButton, fButton, gButton, hButton, jButton, kButton, lButton, zButton, xButton, cButton, vButton, bButton, nButton, mButton, backButton, submitButton]
-
 
 initialise()
