@@ -102,6 +102,7 @@ const guessSubmitStatus = [firstGuessSubmitted, secondGuessSubmitted, thirdGuess
 const initialise = () => {
     chooseWord()
     solutionWordCharacters = {}
+    playedWord = ""
     currentGuess = playerGuesses[0]
     playerGuesses.forEach((guess) => {
         guess.forEach((letter) => {
@@ -145,6 +146,7 @@ const initialiseAccessibility = () => {
     accessibilityButton.addEventListener("click", initialise)
     submitButton.removeEventListener("click", selectLetter)
     submitButton.addEventListener("click", submitWordAccessibility)
+    submitButton.removeEventListener("click", initialiseAccessibility)
 }
 
 const chooseWord = () => {
@@ -211,7 +213,7 @@ const submitWordAccessibility = () => {
         })
     })
     guessSubmitStatus[playerGuesses.indexOf(currentGuess)] = true
-    checkWinCondition()
+    checkWinConditionAccessibility()
     updateGuessNumber()
     playedWord = ""
     }
@@ -277,8 +279,34 @@ const checkWinCondition = () => {
     } else {
         return
     }
+    submitButton.removeEventListener("click", submitWordAccessibility)
     submitButton.innerText = "Restart!"
     submitButton.addEventListener("click", initialise)
+}
+
+const checkWinConditionAccessibility = () => {
+    const winMessage = ("You got it! The word was: " + chosenWord)
+    const loseMessage = ("Better luck next time! The word was: " + chosenWord)
+    const hasGreenClass = (letter) => letter.classList.contains("green")
+    const isTrue = (status) => status === true
+    if (currentGuess.every(hasGreenClass)) {
+        resultMessage.innerText = winMessage
+        resultMessage.classList.add("result-win")
+        for (const keyboardButton of keyboardButtons) {
+            keyboardButton.removeEventListener("click", selectLetter)
+        }
+    } else if (guessSubmitStatus.every(isTrue) && !currentGuess.every(hasGreenClass)) {
+        for (const keyboardButton of keyboardButtons) {
+            keyboardButton.removeEventListener("click", selectLetter)
+        }
+        resultMessage.innerText = loseMessage
+        resultMessage.classList.add("result-lose")
+    } else {
+        return
+    }
+    submitButton.removeEventListener("click", submitWordAccessibility)
+    submitButton.innerText = "Restart!"
+    submitButton.addEventListener("click", initialiseAccessibility)
 }
 
 const keyboardButtons = [qButton, wButton, eButton, rButton, tButton, yButton, uButton, iButton, oButton, pButton, aButton, sButton, dButton, fButton, gButton, hButton, jButton, kButton, lButton, zButton, xButton, cButton, vButton, bButton, nButton, mButton, backButton, submitButton]
