@@ -1,10 +1,29 @@
-# Tawheed's Wordle
+# Tawheed's Wordle - deployed link [here](https://tawheedahmed28.github.io/wordle-game-project/)
 
-![](./images/WordleEmpty.png)
+#### Solo project - a browser-based game of my choosing, with logic implemented in JavaScript.
+
+### Technologies used
+
+Front end:
+- HTML
+- CSS
+- JavaScript
+
 ![](./images/WordleFull.png)
 ![](./images/WordleFullAccessibility.png)
 
-## Basics of Wordle
+---
+
+### Brief
+
+- Render your game in a browser using DOM manipulation.
+- The game must include win/loss criteria, with appropriate logic and messages rendered in HTML.
+- Include a HTML, CSS and JavaScript file organised appropriately.
+- Deploy the game online for others to play.
+
+---
+
+### Game instructions
 
 Wordle is a common word game (and my favourite 5 minute game!) where the aim is to correctly guess a 5 letter word randomly selected by the computer. You have 6 attempts to do so. For each character in your guess, there is a check:
 
@@ -16,16 +35,21 @@ Wordle is a common word game (and my favourite 5 minute game!) where the aim is 
 
 You win once all 5 characters in your guess turn green i.e. when they are correct.
 
-## Game site and plan
+---
 
-The game can be played [here](https://tawheedahmed28.github.io/wordle-game-project/).
+### Plan
 
-My plan for this Wordle project can be seen below:
+For this project, I put together an Excalidraw board to visualise my final product, along with detailed notes of the logic I intend to add. My plan for this Wordle project can be seen below:
 
 ![](./images/WordlePlan.png)
 
+---
 
-The technologies used for this project are **HTML, CSS** and **JavaScript**.
+### Build process
+
+I first began with designing the gameplay grid, as I felt it would make coding the logic easier if I visualised it. Writing out a `console.log` for each step was also a solution, and maybe an easier one, but at the time, I just felt like doing some design!
+
+![Empty Wordle board](./images/WordleEmpty.png "Empty Wordle board")
 
 
 ## What's next?
