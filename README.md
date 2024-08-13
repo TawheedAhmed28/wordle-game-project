@@ -1,6 +1,6 @@
 # Tawheed's Wordle - deployed link [here](https://tawheedahmed28.github.io/wordle-game-project/)
 
-#### Solo project - a browser-based game of my choosing, with logic implemented in JavaScript.
+#### Solo project - a browser-based game of my choosing, with logic implemented in JavaScript, made within a week.
 
 ### Technologies used
 
@@ -244,6 +244,14 @@ const initialiseAccessibility = () => {
     submitButton.removeEventListener("click", initialiseAccessibility)
 }
 ```
+---
+
+### Wins
+
+**Styling** - I wanted to go for a simple and effective style and I feel as though I nailed that - nice grid and colours transitioning in, and a keyboard with dynamic text, just to name a few things!
+
+**Win condition logic** - this was probably the task that took the longest, and also where I got stuck the most. So many different things I tried were very nearly right, but not quite, so when this clicked and I finally got it, it was really satisfying.
+
 ---
 ### Key learnings
 
