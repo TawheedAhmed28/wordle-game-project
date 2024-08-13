@@ -1,6 +1,6 @@
 # Tawheed's Wordle - deployed link [here](https://tawheedahmed28.github.io/wordle-game-project/)
 
-#### Solo project - a browser-based game of my choosing, with logic implemented in JavaScript, made within a week.
+#### Solo project - a browser-based game of my choosing, with logic implemented in JavaScript, made within a week. I decided on Wordle, as I was very familiar with the game.
 
 ### Technologies used
 
