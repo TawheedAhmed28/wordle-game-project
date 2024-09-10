@@ -13,6 +13,20 @@ let solutionWordCharacters = {}
 
 const resultMessage = document.querySelector("#result-message")
 
+const keyboardChars = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"]
+
+const keyboardSelectors = {}
+
+// something like [char]Button = document.querySelector(`#${char}`)
+
+keyboardChars.forEach(char => {
+
+    keyboardSelectors[`${char}Button`] = document.querySelector(`#${char.toUpperCase()}`)
+
+})
+
+console.log(keyboardSelectors)
+
 const qButton = document.querySelector("#Q")
 const wButton = document.querySelector("#W")
 const eButton = document.querySelector("#E")
@@ -42,6 +56,8 @@ const mButton = document.querySelector("#M")
 const backButton = document.querySelector("#backspace")
 const submitButton = document.querySelector("#submit")
 const accessibilityButton = document.querySelector("#accessibility")
+
+
 
 const firstGuess = Array.from(document.querySelectorAll(".first-guess"))
 const secondGuess = Array.from(document.querySelectorAll(".second-guess"))
@@ -311,4 +327,7 @@ const checkWinConditionAccessibility = () => {
 
 const keyboardButtons = [qButton, wButton, eButton, rButton, tButton, yButton, uButton, iButton, oButton, pButton, aButton, sButton, dButton, fButton, gButton, hButton, jButton, kButton, lButton, zButton, xButton, cButton, vButton, bButton, nButton, mButton, backButton, submitButton]
 
+console.log(keyboardButtons)
+
 initialise()
+
