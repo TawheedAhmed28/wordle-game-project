@@ -13,12 +13,9 @@ let solutionWordCharacters = {}
 
 const resultMessage = document.querySelector("#result-message")
 
-const keyboardChars = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m"]
+const keyboardChars = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m", "backspace", "submit", "accessibility"]
 
 const keyboardSelectors = {}
-
-// something like [char]Button = document.querySelector(`#${char}`)
-
 keyboardChars.forEach(char => {
 
     keyboardSelectors[`${char}Button`] = document.querySelector(`#${char.toUpperCase()}`)
@@ -26,38 +23,6 @@ keyboardChars.forEach(char => {
 })
 
 console.log(keyboardSelectors)
-
-const qButton = document.querySelector("#Q")
-const wButton = document.querySelector("#W")
-const eButton = document.querySelector("#E")
-const rButton = document.querySelector("#R")
-const tButton = document.querySelector("#T")
-const yButton = document.querySelector("#Y")
-const uButton = document.querySelector("#U")
-const iButton = document.querySelector("#I")
-const oButton = document.querySelector("#O")
-const pButton = document.querySelector("#P")
-const aButton = document.querySelector("#A")
-const sButton = document.querySelector("#S")
-const dButton = document.querySelector("#D")
-const fButton = document.querySelector("#F")
-const gButton = document.querySelector("#G")
-const hButton = document.querySelector("#H")
-const jButton = document.querySelector("#J")
-const kButton = document.querySelector("#K")
-const lButton = document.querySelector("#L")
-const zButton = document.querySelector("#Z")
-const xButton = document.querySelector("#X")
-const cButton = document.querySelector("#C")
-const vButton = document.querySelector("#V")
-const bButton = document.querySelector("#B")
-const nButton = document.querySelector("#N")
-const mButton = document.querySelector("#M")
-const backButton = document.querySelector("#backspace")
-const submitButton = document.querySelector("#submit")
-const accessibilityButton = document.querySelector("#accessibility")
-
-
 
 const firstGuess = Array.from(document.querySelectorAll(".first-guess"))
 const secondGuess = Array.from(document.querySelectorAll(".second-guess"))
@@ -116,6 +81,9 @@ let sixthGuessSubmitted = false
 const guessSubmitStatus = [firstGuessSubmitted, secondGuessSubmitted, thirdGuessSubmitted, fourthGuessSubmitted, fifthGuessSubmitted, sixthGuessSubmitted]
 
 const initialise = () => {
+
+    resultMessage.innerText = ""
+
     chooseWord()
     solutionWordCharacters = {}
     playedWord = ""
@@ -136,8 +104,8 @@ const initialise = () => {
             letter.classList.remove("accessibility-amber")
         })
     })
-    submitButton.removeEventListener("click", initialise)
-    submitButton.innerText = "Submit!"
+    keyboardSelectors.submitButton.removeEventListener("click", initialise)
+    keyboardSelectors.submitButton.innerText = "Submit!"
     guessSubmitStatus.forEach((status, i) => {
         guessSubmitStatus[i] = false
     })
@@ -147,22 +115,24 @@ const initialise = () => {
     if (resultMessage.classList.contains("result-win")) {
         resultMessage.classList.remove("result-win")
     }
-    for (const keyboardButton of keyboardButtons) {
-        keyboardButton.addEventListener("click", selectLetter) 
+    for (const keyboardChar of keyboardChars) {
+        keyboardSelectors[`${keyboardChar}Button`].addEventListener("click", selectLetter) 
     }
-    accessibilityButton.removeEventListener("click", initialise)
-    accessibilityButton.addEventListener("click", initialiseAccessibility)
-    submitButton.removeEventListener("click", submitWordAccessibility)
-    submitButton.addEventListener("click", selectLetter)
+
+    keyboardSelectors.accessibilityButton.removeEventListener("click", initialise)
+    keyboardSelectors.accessibilityButton.addEventListener("click", initialiseAccessibility)
+    keyboardSelectors.submitButton.removeEventListener("click", submitWordAccessibility)
+    keyboardSelectors.submitButton.addEventListener("click", selectLetter)
+
 }
 
 const initialiseAccessibility = () => {
     initialise()
-    accessibilityButton.removeEventListener("click", initialiseAccessibility)
-    accessibilityButton.addEventListener("click", initialise)
-    submitButton.removeEventListener("click", selectLetter)
-    submitButton.addEventListener("click", submitWordAccessibility)
-    submitButton.removeEventListener("click", initialiseAccessibility)
+    keyboardSelectors.accessibilityButton.removeEventListener("click", initialiseAccessibility)
+    keyboardSelectors.accessibilityButton.addEventListener("click", initialise)
+    keyboardSelectors.submitButton.removeEventListener("click", selectLetter)
+    keyboardSelectors.submitButton.addEventListener("click", submitWordAccessibility)
+    keyboardSelectors.submitButton.removeEventListener("click", initialiseAccessibility)
 }
 
 const chooseWord = () => {
@@ -181,11 +151,11 @@ const renderLetter = () => {
 } 
 
 const selectLetter = (event) => {
-    if (event.target.id === "backspace") {
+    if (event.target.id === "BACKSPACE") {
         deleteLetter()
-    } else if (event.target.id === "submit" && playedWord.length < 5) {
+    } else if (event.target.id === "SUBMIT" && playedWord.length < 5) {
         return
-    } else if (event.target.id === "submit" && playedWord.length === 5) {
+    } else if (event.target.id === "SUBMIT" && playedWord.length === 5) {
         submitWord()
     } else if (playedWord.length === 5) {
         return
@@ -283,21 +253,21 @@ const checkWinCondition = () => {
     if (currentGuess.every(hasGreenClass)) {
         resultMessage.innerText = winMessage
         resultMessage.classList.add("result-win")
-        for (const keyboardButton of keyboardButtons) {
-            keyboardButton.removeEventListener("click", selectLetter)
+        for (const keyboardChar of keyboardChars) {
+            keyboardSelectors[`${keyboardChar}Button`].removeEventListener("click", selectLetter) 
         }
     } else if (guessSubmitStatus.every(isTrue) && !currentGuess.every(hasGreenClass)) {
-        for (const keyboardButton of keyboardButtons) {
-            keyboardButton.removeEventListener("click", selectLetter)
+        for (const keyboardChar of keyboardChars) {
+            keyboardSelectors[`${keyboardChar}Button`].removeEventListener("click", selectLetter) 
         }
         resultMessage.innerText = loseMessage
         resultMessage.classList.add("result-lose")
     } else {
         return
     }
-    submitButton.removeEventListener("click", submitWordAccessibility)
-    submitButton.innerText = "Restart!"
-    submitButton.addEventListener("click", initialise)
+    keyboardSelectors.submitButton.removeEventListener("click", submitWordAccessibility)
+    keyboardSelectors.submitButton.innerText = "Restart!"
+    keyboardSelectors.submitButton.addEventListener("click", initialise)
 }
 
 const checkWinConditionAccessibility = () => {
@@ -325,9 +295,7 @@ const checkWinConditionAccessibility = () => {
     submitButton.addEventListener("click", initialiseAccessibility)
 }
 
-const keyboardButtons = [qButton, wButton, eButton, rButton, tButton, yButton, uButton, iButton, oButton, pButton, aButton, sButton, dButton, fButton, gButton, hButton, jButton, kButton, lButton, zButton, xButton, cButton, vButton, bButton, nButton, mButton, backButton, submitButton]
 
-console.log(keyboardButtons)
 
 initialise()
 
